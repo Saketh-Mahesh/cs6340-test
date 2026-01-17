@@ -33,7 +33,18 @@ bool Prereqs::runOnModule(Module &M) {
   int numOfInstructions = 0;
   int numOfSDivInstructions = 0;
 
-  /* TODO Add your code here */
+  numOfFunctions = M.getFunctionList().size();
+
+  for (llvm::Function &F : M) {
+    for (llvm::BasicBlock &BB : F) {
+      for (llvm::Instruction &I : BB) {
+        numOfInstructions++;
+        if (I.getOpcode() == llvm::Instruction::SDiv) {
+          numOfSDivInstructions++;
+        }
+      }
+    }
+  }
   
   
   
